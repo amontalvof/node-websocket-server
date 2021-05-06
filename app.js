@@ -15,6 +15,15 @@ const middlewares = () => {
     app.use(express.static('public'));
 };
 
+const sockets = () => {
+    io.on("connection", socket => {
+        console.log(colors.cyan('Client connected'), socket.id);
+        socket.on('disconnect',() => {
+            console.log(colors.cyan('Client disconnected'), socket.id);
+        })
+    })
+}
+
 const listen = () => {
     server.listen(port, () => {
         console.log(colors.cyan('Server running on port', port));
@@ -23,5 +32,5 @@ const listen = () => {
 
 // middlewares
 middlewares();
-
+sockets();
 listen();
