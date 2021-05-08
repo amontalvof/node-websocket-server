@@ -16,13 +16,16 @@ const middlewares = () => {
 };
 
 const sockets = () => {
-    io.on("connection", socket => {
+    io.on('connection', (socket) => {
         console.log(colors.cyan('Client connected'), socket.id);
-        socket.on('disconnect',() => {
+        socket.on('disconnect', () => {
             console.log(colors.cyan('Client disconnected'), socket.id);
-        })
-    })
-}
+        });
+        socket.on('send-message', (payload) => {
+            console.log(colors.cyan(payload));
+        });
+    });
+};
 
 const listen = () => {
     server.listen(port, () => {
