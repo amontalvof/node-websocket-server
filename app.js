@@ -17,12 +17,12 @@ const middlewares = () => {
 
 const sockets = () => {
     io.on('connection', (socket) => {
-        console.log(colors.cyan('Client connected'), socket.id);
+        // console.log(colors.cyan('Client connected'), socket.id);
         socket.on('disconnect', () => {
-            console.log(colors.cyan('Client disconnected'), socket.id);
+            // console.log(colors.cyan('Client disconnected'), socket.id);
         });
         socket.on('send-message', (payload) => {
-            console.log(colors.cyan(payload));
+            io.emit('send-message', payload)
         });
     });
 };

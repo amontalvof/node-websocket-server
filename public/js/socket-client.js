@@ -7,15 +7,19 @@ const btnSend = document.querySelector('#btnSend');
 const socket = io();
 
 socket.on('connect', () => {
-    console.log('Connected to the server');
+    // console.log('Connected to the server');
     lblOffline.style.display = 'none';
     lblOnline.style.display = '';
 });
 socket.on('disconnect', () => {
-    console.log('Disconnected from server');
+    // console.log('Disconnected from server');
     lblOnline.style.display = 'none';
     lblOffline.style.display = '';
 });
+
+socket.on('send-message',(payload) => {
+    console.log(payload);
+})
 
 btnSend.addEventListener('click', () => {
     const message = txtMessage.value;
