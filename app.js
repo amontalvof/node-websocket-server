@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const colors = require('colors/safe');
+const { socketController } = require('./sockets/controller');
 
 const app = express();
 const server = require('http').createServer(app);
@@ -16,17 +17,7 @@ const middlewares = () => {
 };
 
 const sockets = () => {
-    io.on('connection', (socket) => {
-        // console.log(colors.cyan('Client connected'), socket.id);
-        socket.on('disconnect', () => {
-            // console.log(colors.cyan('Client disconnected'), socket.id);
-        });
-        socket.on('send-message', (payload, callback) => {
-            const id = 123456;
-            callback({ id, date: new Date().getTime() });
-            // io.emit('send-message', payload)
-        });
-    });
+    io.on('connection', socketController);
 };
 
 const listen = () => {
