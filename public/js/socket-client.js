@@ -17,9 +17,9 @@ socket.on('disconnect', () => {
     lblOffline.style.display = '';
 });
 
-socket.on('send-message',(payload) => {
+socket.on('send-message', (payload) => {
     console.log(payload);
-})
+});
 
 btnSend.addEventListener('click', () => {
     const message = txtMessage.value;
@@ -28,5 +28,7 @@ btnSend.addEventListener('click', () => {
         message,
         date: new Date().getTime(),
     };
-    socket.emit('send-message', payload);
+    socket.emit('send-message', payload, (id) => {
+        console.log('from server', id);
+    });
 });

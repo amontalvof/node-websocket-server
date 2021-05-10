@@ -21,8 +21,10 @@ const sockets = () => {
         socket.on('disconnect', () => {
             // console.log(colors.cyan('Client disconnected'), socket.id);
         });
-        socket.on('send-message', (payload) => {
-            io.emit('send-message', payload)
+        socket.on('send-message', (payload, callback) => {
+            const id = 123456;
+            callback({ id, date: new Date().getTime() });
+            // io.emit('send-message', payload)
         });
     });
 };
